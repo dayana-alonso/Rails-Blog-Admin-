@@ -1,0 +1,26 @@
+<h1>Posts#index</h1>
+
+<%= link_to "Back To All Post", posts_path %>
+
+<% @posts.each do |post| %>
+	<p>
+		<%= truncate(post.title, length: 67, separator: "") %><br>
+		<%= time_ago post.created_at %>
+	</p>
+
+	 <p>
+	 	<%= truncate(post.content, length: 100, separator: '') %>
+	 	<%= link_to "Read More", post_path(post) %>
+	 </p>
+
+	<% if Setting.tag_visibile? %>
+		<p>
+			<% post.tags.each do |tag| %> 
+				<%= link_to tag.name, posts_path(tag: tag.name) %>
+			<% end -%>
+		</p>
+	<% end -%>
+	<hr>
+<% end %>
+
+<%= paginate @posts %>

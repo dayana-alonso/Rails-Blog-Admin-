@@ -1,0 +1,54 @@
+<h1>Posts#show</h1>
+
+<%= link_to "Back To All Post", posts_path %>
+
+	<p>
+		<%= @post.title %><br>
+		<b><%= time_ago @post.created_at %></b>
+	</p>
+
+<p>
+	<%= @post.content %><br>
+</p>
+
+
+<h2> Comments </h2>
+<p>
+	<% @post.comments.approved.each.with_index(1) do |comment, index| %>
+	<%= comment.message %><b><%= double_digit_number(index) %></b><br>	
+	<b><%= comment.visitor.fullname %></b> commented: <%= time_ago comment.created_at %><br>
+	<% end -%>
+</p>
+<hr>
+
+<%= form_for @visitor_comments, url: comments_path do |f| %>
+	<% if session[:visitor_errors] %>
+		<div id="error_explanation">
+			<h2><%= pluralize(session[:visitor_errors].count,"error") %> prohibited this comment from being saved:</h2>
+			<ul>
+				<% session[:visitor_errors].each do |message| %>
+					<li><%= message %></li>
+				<% end -%>
+			</ul>
+		</div>
+	<% end -%>
+	<p>
+		<%= f.label :fullname %>
+		<%= f.text_field :fullname %>
+	</p>
+
+	<p>
+		<%= f.label :email %>
+		<%= f.text_field :email %>
+	</p>
+
+	<%= f.fields_for :comments do |c| %>
+		<p>
+			<%= c.label :message %>
+			<%= c.text_area :message %>
+			<%= c.hidden_field :post_id, value: @post.id %> 
+		</p>
+	<% end -%>
+
+	<p><%= f.submit "Add Comment" %></p>
+<% end -%>

@@ -1,0 +1,17 @@
+<h3>Blog Index</h3>
+
+<table>
+	<tr>
+		<td>fullname</td>
+		<td>username</td>
+		<td>actions</td>
+	</tr>
+
+	<% @moderators.each do |moderator| %>
+		<tr>
+			<td><%= moderator.fullname %></td>
+			<td><%= moderator.username %></td>
+			<td><%= link_to "Edit", edit_admin_moderator_path(moderator) %></td>
+		</tr>
+	<% end -%>
+</table>

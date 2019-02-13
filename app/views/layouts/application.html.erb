@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Front-RailsBlog</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+  </head>
+  <body>
+
+    <%= flash[:notice] %>
+
+    <p>
+      <%= link_to Setting.site_name, posts_path %>|
+      <%= link_to "Posts", posts_path %>|
+      <%= link_to "About", "#" %>|
+      <%= link_to "Contact Me", new_message_path %>|
+      <%= link_to "Login",login_path %>|
+    </p>
+
+    <%= yield %>
+
+</body>
+</html>

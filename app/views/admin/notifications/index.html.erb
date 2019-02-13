@@ -1,0 +1,10 @@
+<h1>Notifications</h1>
+
+<% @visitor_notifications.each do |notif| %>
+<p>
+	<%= "#{notif.notifiable.try(:fullname)} added as a new visitor #{time_ago notif.created_at}" %>
+
+	<%= link_to "Delete", admin_notification_path(notif), method: :delete, data: {confirm:"Are you sure?"} %>
+	<hr>
+</p>
+<% end -%>

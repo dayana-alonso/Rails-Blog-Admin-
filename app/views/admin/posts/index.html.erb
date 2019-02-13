@@ -1,0 +1,30 @@
+<h1>Admin::Posts#index</h1>
+
+<%= render "search", routes: admin_posts_path %>
+
+<p><%= link_to "New Post", new_admin_post_path %></p>
+
+<table class ="table table-bordered table-hover">
+	<thead>
+		<tr>
+			<td><b>title</td>
+			<td><b>publish</td>
+			<td><b>actions</td>
+		</tr>
+	</thead>
+
+	<body>
+			<% @posts.each do |post| %>
+			<tr>
+				<td><%= truncate(post.title, length: 67) %></td>
+				<td><%= status_converter(post.publish, truthy: "Active", falsey: "Pending") %></td>
+				<td>
+					<%= link_to "Edit", edit_admin_post_path(post) %>|
+					<%= link_to "Show", admin_posts_path(post) %>|
+					<%= link_to "Delete", admin_post_path(post), method: :delete, data:{confirm:"are you sure?"} %>|
+				</td>
+			</tr>
+		<% end %>
+	</body>
+</table>
+<p><%= paginate @posts %></p> 
